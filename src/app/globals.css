@@ -53,7 +53,7 @@
   --tracking-tight: -0.02em;
   --tracking-eyebrow: 0.1em;
 
-  --container-content: 72rem;
+  --container-content: 90rem;
 }
 
 /* Font families come from next/font (see app/fonts.ts), exposed as CSS variables on <html>. */
