@@ -1,0 +1,1 @@
+export { ClassRenamer } from "./ClassRenamer";
