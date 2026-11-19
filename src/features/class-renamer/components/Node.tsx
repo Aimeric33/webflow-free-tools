@@ -1,25 +1,6 @@
+import { describeNode } from "../lib/node-types";
 import { isRenamed } from "../lib/webflow";
 import type { NameMap, StyleMap, TreeNode, WebflowStyle } from "../types";
-
-const TYPES: Record<string, { label: string; icon: string }> = {
-  Section: { label: "Section", icon: "S" },
-  Block: { label: "Div Block", icon: "D" },
-  BlockContainer: { label: "Container", icon: "C" },
-  Container: { label: "Container", icon: "C" },
-  Heading: { label: "Heading", icon: "H" },
-  Paragraph: { label: "Paragraph", icon: "P" },
-  Link: { label: "Link", icon: "A" },
-  LinkBlock: { label: "Link Block", icon: "A" },
-  Image: { label: "Image", icon: "I" },
-  List: { label: "List", icon: "L" },
-  ListItem: { label: "List Item", icon: "•" },
-  FormWrapper: { label: "Form", icon: "F" },
-};
-
-function describeType(type: string | undefined) {
-  if (type && TYPES[type]) return TYPES[type];
-  return { label: type ?? "Unknown", icon: type?.[0] ?? "?" };
-}
 
 type ClassInputProps = {
   id: string;
@@ -62,7 +43,7 @@ export type NodeProps = {
 };
 
 export function Node({ node, styles, names, invalid, onRename }: NodeProps) {
-  const type = describeType(node.type);
+  const { label, Icon } = describeNode(node);
   const classStyles = node.classes.flatMap((id) => (styles[id] ? [styles[id]] : []));
   const renamed = classStyles.filter((style) => isRenamed(style, names[style._id]));
 
@@ -70,13 +51,15 @@ export function Node({ node, styles, names, invalid, onRename }: NodeProps) {
     <li>
       <div className="flex min-h-12 flex-wrap items-center gap-2 py-1">
         <span
-          title={node.type}
+          title={node.tag ? `${node.type} <${node.tag}>` : node.type}
           aria-hidden="true"
           className="grid size-6 shrink-0 place-items-center border border-border font-mono text-xs text-muted-foreground"
         >
-          {type.icon}
+          <Icon size={14} strokeWidth={1.75} strokeLinecap="square" strokeLinejoin="miter" />
         </span>
-        <span className="w-20 truncate font-mono text-xs text-muted-foreground">{type.label}</span>
+        <span title={label} className="w-20 truncate font-mono text-xs text-muted-foreground">
+          {label}
+        </span>
 
         {classStyles.map((style) => (
           <ClassInput
