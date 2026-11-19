@@ -110,7 +110,7 @@ export function applyNames(data: XscpData, names: NameMap): string {
 /**
  * Webflow only reads the "application/json" MIME type on paste.
  * navigator.clipboard.writeText() can only write text/plain, so we hook the `copy`
- * event and trigger it with execCommand — still the only way to set a custom type
+ * event and trigger it with execCommand - still the only way to set a custom type
  * synchronously from a click handler.
  */
 export function copyToWebflow(json: string): boolean {

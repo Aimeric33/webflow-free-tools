@@ -2,15 +2,19 @@ import type { ReactNode } from "react";
 
 type EyebrowProps = {
   children: ReactNode;
-  /** Tailwind background class for the leading pill. */
-  dotColor?: string;
+  /** Shows the blue accent marker. Use on at most one element per section. */
+  accent?: boolean;
+  className?: string;
 };
 
-export function Eyebrow({ children, dotColor = "bg-primary" }: EyebrowProps) {
+/** Mono, uppercase label that introduces a section. */
+export function Eyebrow({ children, accent = false, className = "" }: EyebrowProps) {
   return (
-    <div className="flex items-center gap-2">
-      <span aria-hidden="true" className={`h-2 w-4 rounded-full ${dotColor}`} />
-      <p className="text-xs">{children}</p>
-    </div>
+    <p
+      className={`flex items-center gap-2 font-mono text-xs tracking-eyebrow text-muted-foreground uppercase ${className}`}
+    >
+      {accent && <span aria-hidden="true" className="size-2 bg-primary" />}
+      {children}
+    </p>
   );
 }

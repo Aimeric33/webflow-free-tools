@@ -23,8 +23,8 @@ type ClassesPanelProps = {
 };
 
 const tabClass = (active: boolean) =>
-  `h-7 rounded-[5px] px-2.5 text-xs transition-colors ${
-    active ? "bg-surface-2 text-heading" : "text-muted hover:text-text"
+  `h-8 px-3 font-mono text-xs transition-colors ${
+    active ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
   }`;
 
 export function ClassesPanel({
@@ -40,6 +40,7 @@ export function ClassesPanel({
   const [onlyModified, setOnlyModified] = useState(false);
 
   const allStyles = Object.values(styles);
+  const isEmpty = tree.length === 0;
   const modifiedCount = allStyles.filter((style) => isRenamed(style, names[style._id])).length;
 
   const visibleTree = useMemo(() => {
@@ -61,20 +62,20 @@ export function ClassesPanel({
   return (
     <section
       aria-labelledby="classes-heading"
-      className="flex min-w-0 flex-col rounded-lg border border-border bg-surface"
+      className="flex min-w-0 flex-col border border-border bg-background"
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3.5">
-        <div className="flex items-center gap-2.5">
-          <h2 id="classes-heading" className="font-sans text-base font-medium text-heading">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-4 py-3">
+        <div className="flex items-center gap-3">
+          <h2 id="classes-heading" className="text-base">
             Classes
           </h2>
-          <span className="rounded-full bg-surface-2 px-2 py-px text-[11px] text-muted">
+          <span className="border border-border px-2 font-mono text-xs text-muted-foreground">
             {allStyles.length}
           </span>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <label className="flex h-9 items-center gap-2 rounded-sm border border-border bg-bg px-3 focus-within:border-primary/50">
+          <label className="flex h-10 items-center gap-2 border border-border bg-background px-3 focus-within:border-primary">
             <svg
               aria-hidden="true"
               width="14"
@@ -83,9 +84,8 @@ export function ClassesPanel({
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-muted"
+              strokeLinecap="square"
+              className="text-muted-foreground"
             >
               <circle cx="11" cy="11" r="7" />
               <path d="M20 20l-3.5-3.5" />
@@ -96,14 +96,14 @@ export function ClassesPanel({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Filter…"
-              className="w-36 bg-transparent font-mono text-[13px] text-heading outline-none placeholder:text-muted"
+              className="w-36 bg-transparent font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground"
             />
           </label>
 
           <div
             role="group"
             aria-label="Show classes"
-            className="flex rounded-sm border border-border bg-bg p-[3px]"
+            className="flex h-10 items-center border border-border p-1"
           >
             <button
               type="button"
@@ -125,7 +125,7 @@ export function ClassesPanel({
         </div>
       </div>
 
-      <div className="p-4 text-[13px]">
+      <div className="p-4 text-sm">
         {visibleTree.length > 0 ? (
           <ul>
             {visibleTree.map((node) => (
@@ -140,26 +140,30 @@ export function ClassesPanel({
             ))}
           </ul>
         ) : (
-          <p className="py-10 text-center text-muted">
-            {onlyModified && !query ? "No class renamed yet." : "No class matches your filter."}
+          <p className="py-12 text-center text-muted-foreground">
+            {isEmpty
+              ? "Paste an element to see its classes."
+              : onlyModified && !query
+                ? "No class renamed yet."
+                : "No class matches your filter."}
           </p>
         )}
       </div>
 
-      <div className="mt-auto flex flex-wrap items-center justify-end gap-3 border-t border-border px-4 py-3.5">
+      <div className="mt-auto flex flex-wrap items-center justify-end gap-4 border-t border-border px-4 py-3">
         {invalid.size > 0 ? (
-          <span role="alert" className="text-xs text-red-400">
+          <span role="alert" className="text-xs text-danger">
             Some classes are empty or duplicated.
           </span>
         ) : (
-          <span className="text-xs text-muted">then ⌘ V in the Designer</span>
+          <span className="font-mono text-xs text-muted-foreground">then ⌘ V in the Designer</span>
         )}
 
         <button
           type="button"
           onClick={onCopy}
-          disabled={invalid.size > 0}
-          className="flex min-h-11 items-center gap-2 rounded-sm bg-primary px-[18px] font-sans text-sm font-medium text-primary-fg transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-30"
+          disabled={isEmpty || invalid.size > 0}
+          className="flex min-h-12 items-center gap-2 bg-primary px-6 text-sm font-medium text-primary-fg transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30"
         >
           <svg
             aria-hidden="true"
@@ -169,11 +173,10 @@ export function ClassesPanel({
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeLinecap="square"
           >
-            <rect x="9" y="9" width="11" height="11" rx="2" />
-            <path d="M5 15V6a2 2 0 0 1 2-2h9" />
+            <rect x="9" y="9" width="11" height="11" />
+            <path d="M5 15V4h11" />
           </svg>
           <span aria-live="polite">{copied ? "Copied!" : "Copy for Webflow"}</span>
         </button>

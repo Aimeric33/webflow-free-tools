@@ -1,27 +1,59 @@
 @import "tailwindcss";
 
+/*
+ * Hard-Edged Neutral design system.
+ * Solid neutrals, square corners, hierarchy from type, weight and space.
+ * Blue (#007aff) is the single accent: at most one element per section.
+ */
 @theme {
-  /* Backgrounds */
-  --color-bg: #080a09;
-  --color-surface: #131517;
-  --color-surface-2: #232326;
-  --color-border: rgb(255 255 255 / 0.08);
+  /* Drop Tailwind's default palette and scales so only the tokens below exist. */
+  --color-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --text-*: initial;
 
-  /* Text */
-  --color-text: #fffc;
-  --color-heading: #ffffff;
-  --color-muted: rgb(255 255 255 / 0.5);
+  /* Neutrals (dark mirror of the Hard-Edged Neutral palette) */
+  --color-background: #080a09;
+  --color-foreground: #fafafa;
+  --color-foreground-hover: #d4d4d4;
+  --color-secondary: #a3a3a3;
+  --color-muted-foreground: #8f8f8f;
+  --color-border: #262626;
+  --color-border-strong: #3a3a3a;
+  --color-muted: #171717;
 
-  /* Accents */
+  /* Accent (brand blue) */
   --color-primary: #007aff;
   /* Text on primary: 4.73:1 against #007aff (WCAG AA) */
   --color-primary-fg: #0b0a33;
-  --color-secondary: #312ecb;
+  /* Second logo shape only */
+  --color-brand-indigo: #312ecb;
 
-  /* Radii */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  /* Feedback (functional, not decorative): 7.18:1 on background */
+  --color-danger: #f87171;
+
+  /* Type scale (rem): 0.75, 0.875, 1, 1.25, 1.5, 2, 3, 4.5 */
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 2rem;
+  --text-2xl: 2rem;
+  --text-2xl--line-height: 2.5rem;
+  --text-3xl: 3rem;
+  --text-3xl--line-height: 1.1;
+  --text-4xl: 4.5rem;
+  --text-4xl--line-height: 1.05;
+
+  --tracking-tight: -0.02em;
+  --tracking-eyebrow: 0.1em;
+
+  --container-content: 72rem;
 }
 
 /* Font families come from next/font (see app/fonts.ts), exposed as CSS variables on <html>. */
@@ -31,31 +63,31 @@
 }
 
 @layer base {
+  /* Square corners everywhere, no exceptions. */
+  *,
+  ::before,
+  ::after {
+    border-radius: 0 !important;
+  }
+
   html {
-    @apply bg-bg font-mono text-text antialiased;
+    @apply bg-background font-sans text-base text-foreground antialiased;
     color-scheme: dark;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-sans font-medium tracking-tight text-heading;
-  }
-
-  h1 {
-    @apply mb-6 text-5xl;
-  }
-
-  h2 {
-    @apply text-2xl;
-  }
-
-  h3 {
-    @apply text-lg;
+    @apply font-semibold tracking-tight text-foreground;
   }
 
   a {
-    @apply text-heading transition-colors hover:text-text;
+    @apply transition-colors;
+  }
+
+  code,
+  kbd {
+    @apply font-mono;
   }
 
   :focus-visible {
