@@ -25,7 +25,7 @@ export function Hero() {
           alt="Example of Webflow classes renamed with this tool"
           preload
           placeholder="blur"
-          sizes="(min-width: 72rem) 68rem, calc(100vw - 2.5rem)"
+          sizes="(min-width: 90rem) 86rem, calc(100vw - 2.5rem)"
           className="aspect-2/1 w-full object-cover"
         />
       </div>
