@@ -77,8 +77,8 @@ function PastedSummary({ data, onPaste }: { data: XscpData; onPaste: PasteHandle
   ];
 
   return (
-    <section className="flex flex-col gap-4 border border-border bg-background p-6">
-      <div className="flex items-center gap-3">
+    <section className="flex flex-col gap-4 border border-border bg-background p-4 lg:flex-row lg:items-center lg:gap-6">
+      <div className="flex shrink-0 items-center gap-3">
         <span className="grid size-8 shrink-0 place-items-center border border-border text-foreground">
           <CheckIcon />
         </span>
@@ -88,18 +88,18 @@ function PastedSummary({ data, onPaste }: { data: XscpData; onPaste: PasteHandle
         </div>
       </div>
 
-      <dl className="grid grid-cols-3 border border-border">
+      <dl className="grid grid-cols-3 border border-border lg:min-w-96">
         {stats.map((s) => (
-          <div key={s.label} className="min-w-0 border-l border-border px-3 py-3 first:border-l-0">
+          <div key={s.label} className="min-w-0 border-l border-border px-3 py-2 first:border-l-0">
             <dt className="font-mono text-xs tracking-eyebrow text-muted-foreground uppercase">
               {s.label}
             </dt>
-            <dd className="mt-1 truncate font-mono text-foreground">{s.value}</dd>
+            <dd className="truncate font-mono text-foreground">{s.value}</dd>
           </div>
         ))}
       </dl>
 
-      <label className="relative flex min-h-12 items-center justify-between border border-dashed border-border-strong px-4 text-sm text-secondary transition-colors hover:border-foreground hover:text-foreground">
+      <label className="relative flex min-h-12 items-center justify-between gap-4 border border-dashed border-border-strong px-4 text-sm text-secondary transition-colors hover:border-foreground hover:text-foreground lg:ml-auto lg:w-72">
         Paste another element
         <Kbd>⌘ V</Kbd>
         <PasteTarget onPaste={onPaste} />
@@ -119,7 +119,7 @@ export function PasteZone({ data, error, onPaste }: PasteZoneProps) {
 
   return (
     <label
-      className={`relative flex min-h-96 min-w-0 cursor-text flex-col items-center justify-center gap-4 border border-dashed bg-background p-8 text-center transition-colors ${
+      className={`relative flex min-h-64 min-w-0 cursor-text flex-col items-center justify-center gap-4 border border-dashed bg-background p-8 text-center transition-colors ${
         error ? "border-danger" : "border-border-strong hover:border-foreground"
       }`}
     >
