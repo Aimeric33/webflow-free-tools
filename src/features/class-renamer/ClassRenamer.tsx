@@ -9,7 +9,7 @@ export function ClassRenamer() {
     useClassRenamer();
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[0.5fr_1fr]">
+    <div className="grid gap-8 lg:grid-cols-[1fr_2fr]">
       <div>
         <PasteZone data={data} error={error} onPaste={handlePaste} />
       </div>

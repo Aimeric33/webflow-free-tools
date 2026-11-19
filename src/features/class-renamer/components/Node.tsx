@@ -34,8 +34,10 @@ function ClassInput({ id, style, value, invalid, onRename }: ClassInputProps) {
   const changed = isRenamed(style, value);
 
   const tone = invalid
-    ? "border-red-400 bg-red-400/10 text-red-400"
-    : `bg-primary/10 text-primary ${changed ? "border-primary/40" : "border-border"}`;
+    ? "border-danger text-danger"
+    : changed
+      ? "border-foreground text-foreground"
+      : "border-border text-secondary";
 
   return (
     <input
@@ -46,7 +48,7 @@ function ClassInput({ id, style, value, invalid, onRename }: ClassInputProps) {
       size={Math.max(value.length, 4)}
       spellCheck={false}
       autoComplete="off"
-      className={`rounded-sm border px-2 py-1 font-mono transition outline-none focus:border-primary focus:bg-bg focus:text-heading ${tone}`}
+      className={`border bg-background px-2 py-1 font-mono transition-colors outline-none focus:border-primary focus:text-foreground ${tone}`}
     />
   );
 }
@@ -66,15 +68,15 @@ export function Node({ node, styles, names, invalid, onRename }: NodeProps) {
 
   return (
     <li>
-      <div className="flex min-h-10 flex-wrap items-center gap-2.5">
+      <div className="flex min-h-12 flex-wrap items-center gap-2 py-1">
         <span
           title={node.type}
           aria-hidden="true"
-          className="grid size-6 shrink-0 place-items-center rounded-sm bg-surface-2 text-[11px] text-muted"
+          className="grid size-6 shrink-0 place-items-center border border-border font-mono text-xs text-muted-foreground"
         >
           {type.icon}
         </span>
-        <span className="w-[84px] truncate text-xs text-muted">{type.label}</span>
+        <span className="w-20 truncate font-mono text-xs text-muted-foreground">{type.label}</span>
 
         {classStyles.map((style) => (
           <ClassInput
@@ -87,17 +89,19 @@ export function Node({ node, styles, names, invalid, onRename }: NodeProps) {
           />
         ))}
 
-        {classStyles.length === 0 && <span className="text-xs text-muted/60">No class</span>}
+        {classStyles.length === 0 && (
+          <span className="font-mono text-xs text-muted-foreground">No class</span>
+        )}
 
         {renamed.map((style) => (
-          <s key={style._id} className="text-xs text-muted">
+          <s key={style._id} className="font-mono text-xs text-muted-foreground">
             {style.name}
           </s>
         ))}
       </div>
 
       {node.children.length > 0 && (
-        <ul className="ml-[11px] border-l border-border pl-[21px]">
+        <ul className="ml-3 border-l border-border pl-6">
           {node.children.map((child) => (
             <Node
               key={child.id}

@@ -13,7 +13,7 @@ export function Logo({ className }: { className?: string }) {
       />
       <path
         d="M51.9208 80.6117L34.0312 107.078H99.8344L146.022 38.7479H97.4552L69.1571 80.6117H51.9208Z"
-        className="fill-secondary"
+        className="fill-brand-indigo"
       />
     </svg>
   );

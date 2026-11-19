@@ -25,7 +25,7 @@ export function MobileMenu({ items }: { items: readonly NavItem[] }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="mobile-menu"
-        className="rounded-sm bg-surface-2 p-2 text-heading transition hover:text-heading/75"
+        className="border border-border p-2 text-foreground transition-colors hover:bg-muted"
       >
         <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
         <svg
@@ -44,7 +44,7 @@ export function MobileMenu({ items }: { items: readonly NavItem[] }) {
         <nav
           id="mobile-menu"
           aria-label="Mobile"
-          className="absolute inset-x-0 top-16 border-b border-border bg-bg/95 px-4 pb-4 backdrop-blur-xl sm:px-6"
+          className="absolute inset-x-0 top-16 border-b border-border bg-background px-5 py-4 sm:px-6"
         >
           <ul className="flex flex-col gap-1 text-sm">
             {items.map((item) => (
@@ -52,7 +52,7 @@ export function MobileMenu({ items }: { items: readonly NavItem[] }) {
                 <NavLink
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block px-2 py-2 text-heading hover:text-text"
+                  className="block py-2 text-secondary hover:text-foreground aria-[current=page]:text-foreground"
                 >
                   {item.label}
                 </NavLink>
