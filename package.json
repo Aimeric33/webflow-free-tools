@@ -1,8 +1,8 @@
 {
-  "name": "webflow-classes-renamer",
+  "name": "webflow-free-tools",
   "version": "0.1.0",
   "private": true,
-  "description": "Paste a Webflow element, rename every class in one place, and copy it back to the Designer.",
+  "description": "Free tools for Webflow developers, starting with a class renamer: paste an element, rename its classes, copy it back to the Designer.",
   "engines": {
     "node": ">=20.9.0"
   },

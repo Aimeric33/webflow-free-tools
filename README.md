@@ -1,10 +1,12 @@
-# Webflow Classes Renamer
+# Webflow Free Tools
 
-A free tool for Webflow developers: paste any Webflow element, rename every class in one place, and copy it back to the Designer. No more clicking through the Style panel one class at a time.
+**FacetsDev** is a set of free tools for Webflow developers. They are always free, need no account, and run entirely in the browser.
 
-Part of **FacetsDev**, a set of free tools for Webflow developers.
+## Tools
 
-## How it works
+### Classes Renamer (`/renamer`)
+
+Paste any Webflow element, rename every class in one place, and copy it back to the Designer. No more clicking through the Style panel one class at a time.
 
 1. In the Webflow Designer, copy an element (⌘C).
 2. Paste it on `/renamer` (⌘V). The element tree appears with an input for each class.
